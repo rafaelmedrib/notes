@@ -1,4 +1,4 @@
-import { port } from "./app.mjs";
+import { debug, dbgerror, port } from "./app.mjs";
 import { server } from "./app.mjs";
 
 export function normalizePort(val) {
@@ -16,6 +16,7 @@ export function normalizePort(val) {
 }
 
 export function onError(error) {
+    dbgerror(error);
     if(error.syscall !== 'listen') {
       throw error;
     }
@@ -31,20 +32,24 @@ export function onError(error) {
             console.error(bind + ' is already in use');
             process.exit(1);
             break;
+        case 'ENOTESSTORE':
+            console.error(`No recognized NotesStore because ${error.err}`);
+            process.exit(1);
+            break;
         default:
             throw error;
     }
-}
+} 
 
 export function onListening() {
     const addr = server.address();
     const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-    console.log('Listening on ' + bind);
+    debug('Listening on ' + bind);
 }
 
 export function handle404(req, res, next) {
     const err = new Error('Not Found');
-    err.status = 404;
+    err.status = 404; 
     next(err);
 }
 
@@ -59,3 +64,12 @@ export function basicErrorHandler(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 }
+
+process.on('uncaughtException', (err) => {
+    console.error(`I've crashed!!! - ${err.stack || err}`);
+});
+
+import * as util from 'util';
+process.on('unhandledRejection', (reason, promise) => {
+    console.error(`Unhandled Rejection at: ${util.inspect(promise)} reason: ${reason}`);
+});

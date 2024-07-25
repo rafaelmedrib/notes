@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { NotesStore as notes } from "../app.mjs";
+import { NotesStore as notes } from '../models/notes-store.mjs'
 export const notesRouter = Router();
 
 notesRouter.get('/add', (req, res, next) => {

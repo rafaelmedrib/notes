@@ -1,5 +1,5 @@
 {
-    "watch": ["models", "routes", "partials", "views", "app.mjs"],
+    "watch": ["models", "routes", "partials", "views", "./*.mjs"],
     "ext": "mjs, hbs, js",
-    "exec": "cross-env DEBUG=notes:* node ./app.mjs"
+    "exec": "node ./app.mjs"
 }

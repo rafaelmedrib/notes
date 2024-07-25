@@ -1,4 +1,4 @@
-import { NotesStore as notes } from '../app.mjs'
+import { NotesStore as notes } from '../models/notes-store.mjs'
 import { Router } from "express";
 const router = Router();
 
@@ -9,8 +9,6 @@ router.get("/", async function (req, res, next) {
         const notesPromise = keylist.map((key) => notes.read(key));
 
         const noteslist = await Promise.all(notesPromise);
-        console.log("🚀 ~ noteslist:", noteslist)
-
         res.render("index", {
             title: "Notes",
             noteslist,

@@ -8,7 +8,9 @@
     "fs-server2": "cross-env NOTES_MODEL=fs PORT=3002 nodemon",
     "level-start": "cross-env DEBUG=notes:* NOTES_MODEL=level PORT=3000 nodemon",
     "sqlite3-setup": "sqlite3 chap07.sqlite3 --init models/schema-sqlite3.sql",
-    "sqlite3-start": "cross-env SQLITE_FILE=chap07.sqlite3 NOTES_MODEL=sqlite3 DEBUG=notes:* nodemon"
+    "sqlite3-start": "cross-env SQLITE_FILE=chap07.sqlite3 NOTES_MODEL=sqlite3 DEBUG=notes:* nodemon",
+    "sequelize-start": "cross-env DEBUG=notes:* SEQUELIZE_CONNECT=models/sequelize-sqlite.yaml NOTES_MODEL=sequelize nodemon",
+    "mongodb-start": "cross-env DEBUG=notes:* MONGO_URL=mongodb://localhost/ MONGO_DBNAME=chap07 NOTES_MODEL=mongodb nodemon"
   },
   "dependencies": {
     "body-parser": "^1.20.2",
@@ -22,14 +24,18 @@
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "jquery": "3.5.x",
+    "js-yaml": "3.13.x",
     "level": "^6.0.1",
+    "mongodb": "^3.7.4",
     "morgan": "~1.9.1",
     "popper.js": "1.16.x",
     "rotating-file-stream": "^3.2.3",
+    "sequelize": "^6.37.3",
     "serve-favicon": "^2.5.0",
     "sqlite3": "^5.1.7"
   },
   "devDependencies": {
+    "@types/mongodb": "^4.0.7",
     "nodemon": "^3.1.4"
   }
 }

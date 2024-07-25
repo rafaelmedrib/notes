@@ -1,7 +1,15 @@
 bootstrap-5.*
+
+# fs db
 notes-fs-data/
+
+# level db
 notes.level/
+
+# sqlite databases
 chap07.sqlite3
+notes-sequelize.sqlite3
+
 # Logs
 logs
 *.log

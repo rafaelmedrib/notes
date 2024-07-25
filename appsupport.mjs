@@ -1,5 +1,6 @@
 import { debug, dbgerror, port } from "./app.mjs";
 import { server } from "./app.mjs";
+import { NotesStore } from './models/notes-store.mjs'
 
 export function normalizePort(val) {
     const port = parseInt(val, 10);
@@ -71,5 +72,18 @@ process.on('uncaughtException', (err) => {
 
 import * as util from 'util';
 process.on('unhandledRejection', (reason, promise) => {
-    console.error(`Unhandled Rejection at: ${util.inspect(promise)} reason: ${reason}`);
+    console.error(`Unhandled Rejection at: ${util.inspect(promise)} reason: ${util.inspect(reason)}`);
 });
+
+async function catchProcessDeath() {
+    debug('urk...');
+    await NotesStore.close();
+    await server.close();
+    process.exit(0);
+}
+
+process.on('SIGTERM', catchProcessDeath);
+process.on('SIGINT', catchProcessDeath);
+process.on('SIGHUP', catchProcessDeath);
+
+process.on('exit', () => debug('exiting...'));

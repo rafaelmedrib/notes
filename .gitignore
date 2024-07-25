@@ -1,5 +1,6 @@
 bootstrap-5.*
-
+notes-fs-data/
+notes.level/
 # Logs
 logs
 *.log

@@ -1,6 +1,7 @@
 bootstrap-5.*
 notes-fs-data/
 notes.level/
+chap07.sqlite3
 # Logs
 logs
 *.log
